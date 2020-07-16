@@ -1,0 +1,12 @@
+{
+  "name": "atcoder-notify",
+  "version": "0.1.0",
+  "description": "Notify you of upcoming contest of AtCoder",
+  "repository": "https://github.com/shun-shobon/atcoder-notify.git",
+  "author": "shun-shobon <shun.shobon@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {}
+}
