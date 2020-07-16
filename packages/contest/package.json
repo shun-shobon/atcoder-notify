@@ -1,0 +1,17 @@
+{
+  "name": "contest",
+  "version": "0.1.0",
+  "description": "Scraping and manege upcoming contest of AtCoder for AtCoder Notify",
+  "repository": "https://github.com/shun-shobon/atcoder-notify.git",
+  "author": "shun-shobon <shun.shobon@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "main": "build/index.js",
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^3.9.6"
+  }
+}
