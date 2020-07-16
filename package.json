@@ -7,6 +7,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {},
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "lerna": "^3.22.1"
+  },
+  "workspaces": ["packeages/*"]
 }
