@@ -3,6 +3,8 @@
   "compilerOptions": {
     "target": "es2019",
     "outDir": "./build",
-    "rootDir": "./src"
+    "rootDir": "./src",
+    "baseUrl": "./src",
+    "paths": { "~/*": ["*"] }
   }
 }
