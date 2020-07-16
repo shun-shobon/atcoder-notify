@@ -6,9 +6,20 @@
   "author": "shun-shobon <shun.shobon@gmail.com>",
   "license": "MIT",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "lint": "lerna run lint",
+    "lint:fix": "lerna run lint:fix"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
+  },
   "devDependencies": {
+    "husky": "^4.2.5",
     "lerna": "^3.22.1"
   },
-  "workspaces": ["packages/*"]
+  "workspaces": [
+    "packages/*"
+  ]
 }
