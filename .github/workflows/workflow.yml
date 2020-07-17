@@ -63,3 +63,33 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
+
+  build:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    strategy:
+      matrix:
+        target:
+          - contest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/yarn
+          key: ${{ runner.os }}-${{ github.ref }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ github.ref }}-
+            ${{ runner.os }}-
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: yarn install --frozen-lockfile
+
+      - name: build ${{ matrix.target }}
+        run: yarn build --scope ${{ matrix.target }}
+
+      - name: upload ${{ matrix.target }} build artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: ${{ matrix.target }}-build-artifact
+          path: ./packages/${{ matrix.target }}/build
