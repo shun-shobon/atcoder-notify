@@ -9,6 +9,7 @@
   "main": "build/index.js",
   "scripts": {
     "build": "tsc",
+    "clean": "rimraf build",
     "watch": "tsc --watch",
     "test": "jest",
     "lint": "eslint --ignore-path ../../.gitignore '**/*.{ts,js}'",
@@ -23,6 +24,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "jest": "^26.1.0",
     "prettier": "^2.0.5",
+    "rimraf": "^3.0.2",
     "ts-jest": "^26.1.2",
     "typescript": "^3.9.6"
   }
