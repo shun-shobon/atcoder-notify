@@ -1,0 +1,65 @@
+name: workflow
+on:
+  - push
+  - pull_request
+
+jobs:
+  code-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/yarn
+          key: ${{ runner.os }}-${{ github.ref }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ github.ref }}-
+            ${{ runner.os }}-
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: yarn install --frozen-lockfile
+
+      - name: code lint
+        run: yarn lint
+
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          - contest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/yarn
+          key: ${{ runner.os }}-${{ github.ref }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ github.ref }}-
+            ${{ runner.os }}-
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+      - run: yarn install --frozen-lockfile
+
+      - name: ${{ matrix.target }} test
+        run: yarn test:ci --scope ${{ matrix.target }}
+
+      - name: upload LCOV to Coveralls
+        uses: coverallsapp/github-action@v1.1.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: ${{ matrix.target }}-test
+          path-to-lcov: ./packages/${{ matrix.target }}/coverage/lcov.info
+          parallel: true
+
+  test-finish:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - name: finished to upload LCOV to Coveralls
+        uses: coverallsapp/github-action@v1.1.1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true

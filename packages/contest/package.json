@@ -12,6 +12,7 @@
     "clean": "rimraf build",
     "watch": "tsc --watch",
     "test": "jest",
+    "test:ci": "jest --coverage",
     "lint": "eslint --ignore-path ../../.gitignore '**/*.{ts,js}'",
     "lint:fix": "yarn lint --fix"
   },

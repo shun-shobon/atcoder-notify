@@ -10,6 +10,7 @@
     "build": "lerna run build",
     "clean": "lerna run clean",
     "test": "lerna run test",
+    "test:ci": "lerna run test:ci",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint:fix"
   },
