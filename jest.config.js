@@ -12,5 +12,6 @@ module.exports = {
     },
   },
   testMatch: ["<rootDir>/test/**/*.spec.{js,ts}"],
+  testEnvironment: "node",
   collectCoverageFrom: ["<rootDir>/src/**/*.{js,ts}"],
-}
+};
