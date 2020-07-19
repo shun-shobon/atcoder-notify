@@ -1,5 +1,8 @@
 import * as scraping from "../src/scraping";
 
+jest.mock("axios");
+import axios, { AxiosInstance } from "axios";
+
 const getUpcomingContestHtml = (contestHtml: string) => `
   <div id="contest-table-upcoming">
     <div class="panel panel-default">
@@ -16,13 +19,27 @@ const getUpcomingContestHtml = (contestHtml: string) => `
 
 describe("fetchPage()", () => {
   it("should return raw html string if it succeeded to access contest page", async () => {
+    const mockedResponse = "This is mocked response";
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const mockedAxios: jest.Mocked<AxiosInstance> = axios as any;
+    mockedAxios.get.mockResolvedValue({ data: mockedResponse });
+
     const html = await scraping.fetchPage();
     expect(html).toBeDefined();
     expect(html).not.toBeNull();
-    expect(typeof html).toBe("string");
+    expect(html).toBe(mockedResponse);
   });
 
   it("should return null if it failed to access contest page", async () => {
+    const mockedResponse = "This is mocked error";
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const mockedAxios: jest.Mocked<AxiosInstance> = axios as any;
+    mockedAxios.get.mockImplementation(() => {
+      throw new Error(mockedResponse);
+    });
+
     const html = await scraping.fetchPage();
     expect(html).toBeDefined();
     expect(html).toBeNull();
