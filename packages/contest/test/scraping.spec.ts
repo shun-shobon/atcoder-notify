@@ -18,6 +18,7 @@ describe("fetchPage()", () => {
   it("should return raw html string if it succeeded to access contest page", async () => {
     const html = await scraping.fetchPage();
     expect(html).toBeDefined();
+    expect(html).not.toBeNull();
     expect(typeof html).toBe("string");
   });
 
